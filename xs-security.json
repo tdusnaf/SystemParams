@@ -1,0 +1,31 @@
+{
+  "xsappname": "comgrimasterdatasystemparams",
+  "tenant-mode": "dedicated",
+  "description": "Security profile of called application",
+  "foreign-scope-references": [
+    "$XSAPPNAME(application,gri_cap_services).User"
+  ],
+  "scopes": [
+    {
+      "name": "$XSAPPNAME.User",
+      "description": "Use the application"
+    }
+  ],
+  "role-templates": [
+    {
+      "name": "User_SystemParams",
+      "description": "User",
+      "scope-references": ["$XSAPPNAME.User"]
+    }
+  ],
+  "oauth2-configuration": {
+    "token-validity": 3600,
+    "redirect-uris": [
+      "https://*.us10-001.hana.ondemand.com/**",
+      "https://*.eu10.hana.ondemand.com/**",
+      "https://*.us10.hana.ondemand.com/**",
+      "https://*.eu10.applicationstudio.cloud.sap/**",
+      "https://*.launchpad.cfapps.us10.hana.ondemand.com/**"
+    ]
+  }
+}v

@@ -1,0 +1,2455 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Capabilities.V1.xml">
+        <edmx:Include Alias="Capabilities" Namespace="Org.OData.Capabilities.V1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+        <edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
+        <edmx:Include Alias="Core" Namespace="Org.OData.Core.V1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI.xml">
+        <edmx:Include Alias="UI" Namespace="com.sap.vocabularies.UI.v1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Validation.V1.xml">
+        <edmx:Include Alias="Validation" Namespace="Org.OData.Validation.V1"/>
+    </edmx:Reference>
+    <edmx:DataServices>
+        <Schema Namespace="grisrv" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <Annotation Term="Core.Links">
+                <Collection>
+                    <Record>
+                        <PropertyValue Property="rel" String="author"/>
+                        <PropertyValue Property="href" String="https://cap.cloud.sap"/>
+                    </Record>
+                </Collection>
+            </Annotation>
+            <EntityContainer Name="EntityContainer">
+                <EntitySet Name="SystemParams" EntityType="grisrv.SystemParams">
+                    <NavigationPropertyBinding Path="SiblingEntity" Target="SystemParams"/>
+                </EntitySet>
+                <EntitySet Name="ProductFamilies" EntityType="grisrv.ProductFamilies">
+                    <NavigationPropertyBinding Path="product_categories" Target="ProductCategories"/>
+                    <NavigationPropertyBinding Path="texts" Target="ProductFamilies_texts"/>
+                    <NavigationPropertyBinding Path="localized" Target="ProductFamilies_texts"/>
+                </EntitySet>
+                <EntitySet Name="ReferentialAreas" EntityType="grisrv.ReferentialAreas">
+                    <NavigationPropertyBinding Path="texts" Target="ReferentialAreas_texts"/>
+                    <NavigationPropertyBinding Path="localized" Target="ReferentialAreas_texts"/>
+                    <NavigationPropertyBinding Path="SiblingEntity" Target="ReferentialAreas"/>
+                </EntitySet>
+                <EntitySet Name="ProductCategories" EntityType="grisrv.ProductCategories">
+                    <NavigationPropertyBinding Path="referential_area" Target="ReferentialAreas"/>
+                    <NavigationPropertyBinding Path="product_family" Target="ProductFamilies"/>
+                    <NavigationPropertyBinding Path="texts" Target="ProductCategories_texts"/>
+                    <NavigationPropertyBinding Path="localized" Target="ProductCategories_texts"/>
+                </EntitySet>
+                <EntitySet Name="ContactUsers" EntityType="grisrv.ContactUsers"/>
+                <EntitySet Name="ProjectDocumentationStatuses" EntityType="grisrv.ProjectDocumentationStatuses">
+                    <NavigationPropertyBinding Path="texts" Target="ProjectDocumentationStatuses_texts"/>
+                    <NavigationPropertyBinding Path="localized" Target="ProjectDocumentationStatuses_texts"/>
+                </EntitySet>
+                <EntitySet Name="ProjectStatuses" EntityType="grisrv.ProjectStatuses">
+                    <NavigationPropertyBinding Path="texts" Target="ProjectStatuses_texts"/>
+                    <NavigationPropertyBinding Path="localized" Target="ProjectStatuses_texts"/>
+                </EntitySet>
+                <EntitySet Name="CSPMStatuses" EntityType="grisrv.CSPMStatuses">
+                    <NavigationPropertyBinding Path="texts" Target="CSPMStatuses_texts"/>
+                    <NavigationPropertyBinding Path="localized" Target="CSPMStatuses_texts"/>
+                </EntitySet>
+                <EntitySet Name="MFULineStatuses" EntityType="grisrv.MFULineStatuses">
+                    <NavigationPropertyBinding Path="texts" Target="MFULineStatuses_texts"/>
+                    <NavigationPropertyBinding Path="localized" Target="MFULineStatuses_texts"/>
+                </EntitySet>
+                <EntitySet Name="APPModules" EntityType="grisrv.APPModules">
+                    <NavigationPropertyBinding Path="module_properties" Target="APPModuleProperties"/>
+                    <NavigationPropertyBinding Path="texts" Target="APPModules_texts"/>
+                    <NavigationPropertyBinding Path="localized" Target="APPModules_texts"/>
+                </EntitySet>
+                <EntitySet Name="APPModuleProperties" EntityType="grisrv.APPModuleProperties">
+                    <NavigationPropertyBinding Path="module_info" Target="APPModules"/>
+                </EntitySet>
+                <EntitySet Name="APPModuleActions" EntityType="grisrv.APPModuleActions">
+                    <NavigationPropertyBinding Path="module_info" Target="APPModules"/>
+                    <NavigationPropertyBinding Path="action_info" Target="APPActions"/>
+                </EntitySet>
+                <EntitySet Name="APPActions" EntityType="grisrv.APPActions">
+                    <NavigationPropertyBinding Path="action_modules" Target="APPModuleActions"/>
+                    <NavigationPropertyBinding Path="texts" Target="APPActions_texts"/>
+                    <NavigationPropertyBinding Path="localized" Target="APPActions_texts"/>
+                </EntitySet>
+                <EntitySet Name="GRIRolesAppModuleActions" EntityType="grisrv.GRIRolesAppModuleActions">
+                    <NavigationPropertyBinding Path="role_modules_actions" Target="APPModuleActions"/>
+                </EntitySet>
+                <EntitySet Name="ProjectCustomerDocumentations" EntityType="grisrv.ProjectCustomerDocumentations">
+                    <NavigationPropertyBinding Path="family_details" Target="ProductFamilies"/>
+                    <NavigationPropertyBinding Path="documentation_status" Target="ProjectDocumentationStatuses"/>
+                    <NavigationPropertyBinding Path="project_details" Target="Projects"/>
+                </EntitySet>
+                <EntitySet Name="ProjectInternalDocumentations" EntityType="grisrv.ProjectInternalDocumentations">
+                    <NavigationPropertyBinding Path="family_details" Target="ProductFamilies"/>
+                    <NavigationPropertyBinding Path="documentation_status" Target="ProjectDocumentationStatuses"/>
+                    <NavigationPropertyBinding Path="project_details" Target="Projects"/>
+                </EntitySet>
+                <EntitySet Name="ProjectContactUsers" EntityType="grisrv.ProjectContactUsers">
+                    <NavigationPropertyBinding Path="user_details" Target="ContactUsers"/>
+                    <NavigationPropertyBinding Path="project_details" Target="Projects"/>
+                </EntitySet>
+                <EntitySet Name="ProjectAttachments" EntityType="grisrv.ProjectAttachments">
+                    <NavigationPropertyBinding Path="attachment_details" Target="Attachments"/>
+                    <NavigationPropertyBinding Path="project_details" Target="Projects"/>
+                </EntitySet>
+                <EntitySet Name="ProjectCustomerDemands" EntityType="grisrv.ProjectCustomerDemands">
+                    <NavigationPropertyBinding Path="project_details" Target="Projects"/>
+                </EntitySet>
+                <EntitySet Name="Projects" EntityType="grisrv.Projects">
+                    <NavigationPropertyBinding Path="project_status_detail" Target="ProjectStatuses"/>
+                    <NavigationPropertyBinding Path="project_contacs_detail" Target="ProjectContactUsers"/>
+                    <NavigationPropertyBinding Path="project_attachments" Target="ProjectAttachments"/>
+                    <NavigationPropertyBinding Path="customer_demand_detail" Target="ProjectCustomerDemands"/>
+                    <NavigationPropertyBinding Path="cspm_lines" Target="ProjectCSPMLines"/>
+                </EntitySet>
+                <EntitySet Name="ProjectCSPMLines" EntityType="grisrv.ProjectCSPMLines">
+                    <NavigationPropertyBinding Path="cspm_status_detail" Target="CSPMStatuses"/>
+                    <NavigationPropertyBinding Path="project_detail" Target="Projects"/>
+                </EntitySet>
+                <EntitySet Name="ProductionPlanHeaders" EntityType="grisrv.ProductionPlanHeaders">
+                    <NavigationPropertyBinding Path="attachment_details" Target="Attachments"/>
+                    <NavigationPropertyBinding Path="production_plan_data" Target="ProductionPlanLines"/>
+                </EntitySet>
+                <EntitySet Name="ProductionPlanLines" EntityType="grisrv.ProductionPlanLines">
+                    <NavigationPropertyBinding Path="production_plan_header" Target="ProductionPlanHeaders"/>
+                    <NavigationPropertyBinding Path="project_details" Target="Projects"/>
+                </EntitySet>
+                <EntitySet Name="MFUHeaders" EntityType="grisrv.MFUHeaders">
+                    <NavigationPropertyBinding Path="mfu_attachments" Target="MFUAttachments"/>
+                </EntitySet>
+                <EntitySet Name="MFUAttachments" EntityType="grisrv.MFUAttachments">
+                    <NavigationPropertyBinding Path="mfu_details" Target="MFUAttachments"/>
+                    <NavigationPropertyBinding Path="attachment_details" Target="Attachments"/>
+                </EntitySet>
+                <EntitySet Name="MFULines" EntityType="grisrv.MFULines">
+                    <NavigationPropertyBinding Path="mfu_header" Target="MFUHeaders"/>
+                    <NavigationPropertyBinding Path="mfu_line_history" Target="MFULineHistory"/>
+                    <NavigationPropertyBinding Path="mfu_line_status_detail" Target="MFULineStatuses"/>
+                </EntitySet>
+                <EntitySet Name="MFULineHistory" EntityType="grisrv.MFULineHistory">
+                    <NavigationPropertyBinding Path="mfu_header" Target="MFUHeaders"/>
+                    <NavigationPropertyBinding Path="mfu_actual_line_data" Target="MFULines"/>
+                </EntitySet>
+                <EntitySet Name="Attachments" EntityType="grisrv.Attachments">
+                    <NavigationPropertyBinding Path="projects_list" Target="ProjectAttachments"/>
+                </EntitySet>
+                <EntitySet Name="Languages" EntityType="grisrv.Languages">
+                    <NavigationPropertyBinding Path="texts" Target="Languages_texts"/>
+                    <NavigationPropertyBinding Path="localized" Target="Languages_texts"/>
+                </EntitySet>
+                <EntitySet Name="ProductFamilies_texts" EntityType="grisrv.ProductFamilies_texts"/>
+                <EntitySet Name="ReferentialAreas_texts" EntityType="grisrv.ReferentialAreas_texts">
+                    <NavigationPropertyBinding Path="SiblingEntity" Target="ReferentialAreas_texts"/>
+                </EntitySet>
+                <EntitySet Name="ProductCategories_texts" EntityType="grisrv.ProductCategories_texts"/>
+                <EntitySet Name="ProjectDocumentationStatuses_texts" EntityType="grisrv.ProjectDocumentationStatuses_texts"/>
+                <EntitySet Name="ProjectStatuses_texts" EntityType="grisrv.ProjectStatuses_texts"/>
+                <EntitySet Name="CSPMStatuses_texts" EntityType="grisrv.CSPMStatuses_texts"/>
+                <EntitySet Name="MFULineStatuses_texts" EntityType="grisrv.MFULineStatuses_texts"/>
+                <EntitySet Name="APPModules_texts" EntityType="grisrv.APPModules_texts"/>
+                <EntitySet Name="APPActions_texts" EntityType="grisrv.APPActions_texts"/>
+                <EntitySet Name="Languages_texts" EntityType="grisrv.Languages_texts"/>
+            </EntityContainer>
+            <EntityType Name="SystemParams">
+                <Key>
+                    <PropertyRef Name="System_Param_Id"/>
+                    <PropertyRef Name="IsActiveEntity"/>
+                </Key>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="System_Param_Id" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="System_Param_Name" Type="Edm.String" MaxLength="50"/>
+                <Property Name="System_Param_Value" Type="Edm.String" MaxLength="200"/>
+                <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
+                <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <NavigationProperty Name="DraftAdministrativeData" Type="grisrv.DraftAdministrativeData" ContainsTarget="true"/>
+                <NavigationProperty Name="SiblingEntity" Type="grisrv.SystemParams"/>
+            </EntityType>
+            <EntityType Name="ProductFamilies">
+                <Key>
+                    <PropertyRef Name="Product_Family_Id"/>
+                </Key>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="Product_Family_Id" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="Product_Family_Name" Type="Edm.String" MaxLength="200"/>
+                <Property Name="Is_Customer_Category" Type="Edm.Boolean"/>
+                <NavigationProperty Name="product_categories" Type="Collection(grisrv.ProductCategories)"/>
+                <NavigationProperty Name="texts" Type="Collection(grisrv.ProductFamilies_texts)">
+                    <OnDelete Action="Cascade"/>
+                </NavigationProperty>
+                <NavigationProperty Name="localized" Type="grisrv.ProductFamilies_texts">
+                    <ReferentialConstraint Property="Product_Family_Id" ReferencedProperty="Product_Family_Id"/>
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="ReferentialAreas">
+                <Key>
+                    <PropertyRef Name="Referential_Area_Id"/>
+                    <PropertyRef Name="IsActiveEntity"/>
+                </Key>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="Referential_Area_Id" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="Referential_Area_Name" Type="Edm.String" MaxLength="50"/>
+                <NavigationProperty Name="texts" Type="Collection(grisrv.ReferentialAreas_texts)">
+                    <OnDelete Action="Cascade"/>
+                </NavigationProperty>
+                <NavigationProperty Name="localized" Type="grisrv.ReferentialAreas_texts"/>
+                <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
+                <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <NavigationProperty Name="DraftAdministrativeData" Type="grisrv.DraftAdministrativeData" ContainsTarget="true"/>
+                <NavigationProperty Name="SiblingEntity" Type="grisrv.ReferentialAreas"/>
+            </EntityType>
+            <EntityType Name="ProductCategories">
+                <Key>
+                    <PropertyRef Name="Product_Category_Id"/>
+                </Key>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="Product_Category_Id" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="Referential_Area_Id" Type="Edm.Guid"/>
+                <Property Name="Product_Family_Id" Type="Edm.Guid"/>
+                <Property Name="Product_Category_Name" Type="Edm.String" MaxLength="200"/>
+                <NavigationProperty Name="referential_area" Type="grisrv.ReferentialAreas">
+                    <ReferentialConstraint Property="Referential_Area_Id" ReferencedProperty="Referential_Area_Id"/>
+                </NavigationProperty>
+                <NavigationProperty Name="product_family" Type="grisrv.ProductFamilies">
+                    <ReferentialConstraint Property="Product_Family_Id" ReferencedProperty="Product_Family_Id"/>
+                </NavigationProperty>
+                <NavigationProperty Name="texts" Type="Collection(grisrv.ProductCategories_texts)">
+                    <OnDelete Action="Cascade"/>
+                </NavigationProperty>
+                <NavigationProperty Name="localized" Type="grisrv.ProductCategories_texts">
+                    <ReferentialConstraint Property="Product_Category_Id" ReferencedProperty="Product_Category_Id"/>
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="ContactUsers">
+                <Key>
+                    <PropertyRef Name="User_Id"/>
+                </Key>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="User_Id" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="User_Mail" Type="Edm.String" MaxLength="200"/>
+                <Property Name="Phone" Type="Edm.String" MaxLength="50"/>
+                <Property Name="First_Name" Type="Edm.String" MaxLength="100"/>
+                <Property Name="Last_Name" Type="Edm.String" MaxLength="150"/>
+            </EntityType>
+            <EntityType Name="ProjectDocumentationStatuses">
+                <Key>
+                    <PropertyRef Name="Status_Id"/>
+                </Key>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="Status_Id" Type="Edm.String" MaxLength="2" Nullable="false"/>
+                <Property Name="HighlightStatus" Type="Edm.String"/>
+                <Property Name="Status_Name" Type="Edm.String" MaxLength="50"/>
+                <NavigationProperty Name="texts" Type="Collection(grisrv.ProjectDocumentationStatuses_texts)">
+                    <OnDelete Action="Cascade"/>
+                </NavigationProperty>
+                <NavigationProperty Name="localized" Type="grisrv.ProjectDocumentationStatuses_texts">
+                    <ReferentialConstraint Property="Status_Id" ReferencedProperty="Status_Id"/>
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="ProjectStatuses">
+                <Key>
+                    <PropertyRef Name="Status_Id"/>
+                </Key>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="Status_Id" Type="Edm.String" MaxLength="2" Nullable="false"/>
+                <Property Name="HighlightStatus" Type="Edm.String"/>
+                <Property Name="Status_Name" Type="Edm.String" MaxLength="50"/>
+                <NavigationProperty Name="texts" Type="Collection(grisrv.ProjectStatuses_texts)">
+                    <OnDelete Action="Cascade"/>
+                </NavigationProperty>
+                <NavigationProperty Name="localized" Type="grisrv.ProjectStatuses_texts">
+                    <ReferentialConstraint Property="Status_Id" ReferencedProperty="Status_Id"/>
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="CSPMStatuses">
+                <Key>
+                    <PropertyRef Name="Status_Id"/>
+                </Key>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="Status_Id" Type="Edm.String" MaxLength="2" Nullable="false"/>
+                <Property Name="HighlightStatus" Type="Edm.String"/>
+                <Property Name="Status_Name" Type="Edm.String" MaxLength="50"/>
+                <NavigationProperty Name="texts" Type="Collection(grisrv.CSPMStatuses_texts)">
+                    <OnDelete Action="Cascade"/>
+                </NavigationProperty>
+                <NavigationProperty Name="localized" Type="grisrv.CSPMStatuses_texts">
+                    <ReferentialConstraint Property="Status_Id" ReferencedProperty="Status_Id"/>
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="MFULineStatuses">
+                <Key>
+                    <PropertyRef Name="Status_Id"/>
+                </Key>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="Status_Id" Type="Edm.String" MaxLength="2" Nullable="false"/>
+                <Property Name="HighlightStatus" Type="Edm.String"/>
+                <Property Name="Status_Name" Type="Edm.String" MaxLength="50"/>
+                <NavigationProperty Name="texts" Type="Collection(grisrv.MFULineStatuses_texts)">
+                    <OnDelete Action="Cascade"/>
+                </NavigationProperty>
+                <NavigationProperty Name="localized" Type="grisrv.MFULineStatuses_texts">
+                    <ReferentialConstraint Property="Status_Id" ReferencedProperty="Status_Id"/>
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="APPModules">
+                <Key>
+                    <PropertyRef Name="Module_Id"/>
+                </Key>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="Module_Id" Type="Edm.String" MaxLength="100" Nullable="false"/>
+                <Property Name="Module_Name" Type="Edm.String" MaxLength="200"/>
+                <NavigationProperty Name="module_properties" Type="Collection(grisrv.APPModuleProperties)"/>
+                <NavigationProperty Name="texts" Type="Collection(grisrv.APPModules_texts)">
+                    <OnDelete Action="Cascade"/>
+                </NavigationProperty>
+                <NavigationProperty Name="localized" Type="grisrv.APPModules_texts">
+                    <ReferentialConstraint Property="Module_Id" ReferencedProperty="Module_Id"/>
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="APPModuleProperties">
+                <Key>
+                    <PropertyRef Name="Module_Id"/>
+                    <PropertyRef Name="Property_Id"/>
+                </Key>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="Module_Id" Type="Edm.String" MaxLength="100" Nullable="false"/>
+                <Property Name="Property_Id" Type="Edm.String" MaxLength="100" Nullable="false"/>
+                <NavigationProperty Name="module_info" Type="grisrv.APPModules">
+                    <ReferentialConstraint Property="Module_Id" ReferencedProperty="Module_Id"/>
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="APPModuleActions">
+                <Key>
+                    <PropertyRef Name="Module_Id"/>
+                    <PropertyRef Name="Action_Id"/>
+                </Key>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="Module_Id" Type="Edm.String" MaxLength="100" Nullable="false"/>
+                <Property Name="Action_Id" Type="Edm.String" MaxLength="100" Nullable="false"/>
+                <NavigationProperty Name="module_info" Type="grisrv.APPModules">
+                    <ReferentialConstraint Property="Module_Id" ReferencedProperty="Module_Id"/>
+                </NavigationProperty>
+                <NavigationProperty Name="action_info" Type="grisrv.APPActions">
+                    <ReferentialConstraint Property="Action_Id" ReferencedProperty="Action_Id"/>
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="APPActions">
+                <Key>
+                    <PropertyRef Name="Action_Id"/>
+                </Key>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="Action_Id" Type="Edm.String" MaxLength="100" Nullable="false"/>
+                <Property Name="Action_Name" Type="Edm.String" MaxLength="150"/>
+                <NavigationProperty Name="action_modules" Type="Collection(grisrv.APPModuleActions)"/>
+                <NavigationProperty Name="texts" Type="Collection(grisrv.APPActions_texts)">
+                    <OnDelete Action="Cascade"/>
+                </NavigationProperty>
+                <NavigationProperty Name="localized" Type="grisrv.APPActions_texts">
+                    <ReferentialConstraint Property="Action_Id" ReferencedProperty="Action_Id"/>
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="GRIRolesAppModuleActions">
+                <Key>
+                    <PropertyRef Name="Role_Id"/>
+                    <PropertyRef Name="Module_Id"/>
+                    <PropertyRef Name="Action_Id"/>
+                </Key>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="Role_Id" Type="Edm.String" MaxLength="100" Nullable="false"/>
+                <Property Name="Module_Id" Type="Edm.String" MaxLength="100" Nullable="false"/>
+                <Property Name="Action_Id" Type="Edm.String" MaxLength="100" Nullable="false"/>
+                <NavigationProperty Name="role_modules_actions" Type="Collection(grisrv.APPModuleActions)"/>
+            </EntityType>
+            <EntityType Name="ProjectCustomerDocumentations">
+                <Key>
+                    <PropertyRef Name="Product_Family_Id"/>
+                    <PropertyRef Name="Project_Id"/>
+                </Key>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="Product_Family_Id" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="Project_Id" Type="Edm.String" MaxLength="100" Nullable="false"/>
+                <Property Name="Reception_Date" Type="Edm.Date"/>
+                <Property Name="Status_Id" Type="Edm.String" MaxLength="2"/>
+                <NavigationProperty Name="family_details" Type="grisrv.ProductFamilies">
+                    <ReferentialConstraint Property="Product_Family_Id" ReferencedProperty="Product_Family_Id"/>
+                </NavigationProperty>
+                <NavigationProperty Name="documentation_status" Type="grisrv.ProjectDocumentationStatuses">
+                    <ReferentialConstraint Property="Status_Id" ReferencedProperty="Status_Id"/>
+                </NavigationProperty>
+                <NavigationProperty Name="project_details" Type="grisrv.Projects">
+                    <ReferentialConstraint Property="Project_Id" ReferencedProperty="Project_Id"/>
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="ProjectInternalDocumentations">
+                <Key>
+                    <PropertyRef Name="Product_Family_Id"/>
+                    <PropertyRef Name="Project_Id"/>
+                </Key>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="Product_Family_Id" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="Project_Id" Type="Edm.String" MaxLength="100" Nullable="false"/>
+                <Property Name="Documentation_Deadline_Week" Type="Edm.Int32"/>
+                <Property Name="Purchase_Management_Week" Type="Edm.Int32"/>
+                <Property Name="Status_Id" Type="Edm.String" MaxLength="2"/>
+                <NavigationProperty Name="family_details" Type="grisrv.ProductFamilies">
+                    <ReferentialConstraint Property="Product_Family_Id" ReferencedProperty="Product_Family_Id"/>
+                </NavigationProperty>
+                <NavigationProperty Name="documentation_status" Type="grisrv.ProjectDocumentationStatuses">
+                    <ReferentialConstraint Property="Status_Id" ReferencedProperty="Status_Id"/>
+                </NavigationProperty>
+                <NavigationProperty Name="project_details" Type="grisrv.Projects">
+                    <ReferentialConstraint Property="Project_Id" ReferencedProperty="Project_Id"/>
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="ProjectContactUsers">
+                <Key>
+                    <PropertyRef Name="User_Id"/>
+                    <PropertyRef Name="Project_Id"/>
+                </Key>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="User_Id" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="Project_Id" Type="Edm.String" MaxLength="100" Nullable="false"/>
+                <NavigationProperty Name="user_details" Type="grisrv.ContactUsers">
+                    <ReferentialConstraint Property="User_Id" ReferencedProperty="User_Id"/>
+                </NavigationProperty>
+                <NavigationProperty Name="project_details" Type="grisrv.Projects">
+                    <ReferentialConstraint Property="Project_Id" ReferencedProperty="Project_Id"/>
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="ProjectAttachments">
+                <Key>
+                    <PropertyRef Name="Attachment_Id"/>
+                    <PropertyRef Name="Project_Id"/>
+                </Key>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="Attachment_Id" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="Project_Id" Type="Edm.String" MaxLength="100" Nullable="false"/>
+                <NavigationProperty Name="attachment_details" Type="grisrv.Attachments">
+                    <ReferentialConstraint Property="Attachment_Id" ReferencedProperty="Attachment_Id"/>
+                </NavigationProperty>
+                <NavigationProperty Name="project_details" Type="grisrv.Projects">
+                    <ReferentialConstraint Property="Project_Id" ReferencedProperty="Project_Id"/>
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="ProjectCustomerDemands">
+                <Key>
+                    <PropertyRef Name="Customer_Demand_Id"/>
+                </Key>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="Customer_Demand_Id" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="Project_Id" Type="Edm.String" MaxLength="100"/>
+                <Property Name="Date" Type="Edm.Date"/>
+                <Property Name="Week" Type="Edm.Int32"/>
+                <Property Name="Towers_Number" Type="Edm.Int32"/>
+                <NavigationProperty Name="project_details" Type="grisrv.Projects">
+                    <ReferentialConstraint Property="Project_Id" ReferencedProperty="Project_Id"/>
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="Projects">
+                <Key>
+                    <PropertyRef Name="Project_Id"/>
+                </Key>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="Project_Id" Type="Edm.String" MaxLength="100" Nullable="false"/>
+                <Property Name="Society_Id" Type="Edm.String"/>
+                <Property Name="Center_Id" Type="Edm.String"/>
+                <Property Name="Customer_Id" Type="Edm.String"/>
+                <Property Name="Reception_Date_Mail" Type="Edm.Date"/>
+                <Property Name="Send_Date" Type="Edm.Date"/>
+                <Property Name="Towers_Number" Type="Edm.Int32"/>
+                <Property Name="Sections_Per_Tower" Type="Edm.Int32"/>
+                <Property Name="Sales_Order" Type="Edm.String"/>
+                <Property Name="Payment_Date" Type="Edm.Date"/>
+                <Property Name="Status_Id" Type="Edm.String" MaxLength="2"/>
+                <Property Name="Comments" Type="Edm.String" MaxLength="255"/>
+                <NavigationProperty Name="project_status_detail" Type="grisrv.ProjectStatuses">
+                    <ReferentialConstraint Property="Status_Id" ReferencedProperty="Status_Id"/>
+                </NavigationProperty>
+                <NavigationProperty Name="project_contacs_detail" Type="Collection(grisrv.ProjectContactUsers)"/>
+                <NavigationProperty Name="project_attachments" Type="Collection(grisrv.ProjectAttachments)"/>
+                <NavigationProperty Name="customer_demand_detail" Type="Collection(grisrv.ProjectCustomerDemands)"/>
+                <NavigationProperty Name="cspm_lines" Type="Collection(grisrv.ProjectCSPMLines)"/>
+            </EntityType>
+            <EntityType Name="ProjectCSPMLines">
+                <Key>
+                    <PropertyRef Name="CSPM_Line_Id"/>
+                    <PropertyRef Name="Project_Id"/>
+                </Key>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="CSPM_Line_Id" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="Project_Id" Type="Edm.String" MaxLength="100" Nullable="false"/>
+                <Property Name="Product_Category_Id" Type="Edm.Guid"/>
+                <Property Name="To_Buy" Type="Edm.Boolean"/>
+                <Property Name="Vendor_Id" Type="Edm.String"/>
+                <Property Name="Incoterm" Type="Edm.String"/>
+                <Property Name="Additional_Destination_Info" Type="Edm.String" MaxLength="200"/>
+                <Property Name="Lead_Time_Weeks" Type="Edm.Int32"/>
+                <Property Name="Status_Id" Type="Edm.String" MaxLength="2"/>
+                <Property Name="Database" Type="Edm.String" MaxLength="50"/>
+                <Property Name="Delivery_Prevision_Date" Type="Edm.Date"/>
+                <Property Name="Delivery_Prevision_Date_Week" Type="Edm.Int32"/>
+                <Property Name="Necesary_Production_Date" Type="Edm.Int32"/>
+                <Property Name="Necesary_Production_Date_Week" Type="Edm.Int32"/>
+                <Property Name="Reference_Area" Type="Edm.Guid"/>
+                <Property Name="Alert_Id" Type="Edm.Guid"/>
+                <NavigationProperty Name="cspm_status_detail" Type="grisrv.CSPMStatuses">
+                    <ReferentialConstraint Property="Status_Id" ReferencedProperty="Status_Id"/>
+                </NavigationProperty>
+                <NavigationProperty Name="project_detail" Type="Collection(grisrv.Projects)"/>
+            </EntityType>
+            <EntityType Name="ProductionPlanHeaders">
+                <Key>
+                    <PropertyRef Name="Center"/>
+                    <PropertyRef Name="Society"/>
+                    <PropertyRef Name="Version"/>
+                </Key>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="Center" Type="Edm.String" Nullable="false"/>
+                <Property Name="Society" Type="Edm.String" Nullable="false"/>
+                <Property Name="Version" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="Is_Actual_Version" Type="Edm.Boolean"/>
+                <Property Name="Attachment_Id" Type="Edm.String" MaxLength="200"/>
+                <NavigationProperty Name="attachment_details" Type="grisrv.Attachments">
+                    <ReferentialConstraint Property="Attachment_Id" ReferencedProperty="Attachment_Id"/>
+                </NavigationProperty>
+                <NavigationProperty Name="production_plan_data" Type="Collection(grisrv.ProductionPlanLines)"/>
+            </EntityType>
+            <EntityType Name="ProductionPlanLines">
+                <Key>
+                    <PropertyRef Name="Center"/>
+                    <PropertyRef Name="Society"/>
+                    <PropertyRef Name="Version"/>
+                    <PropertyRef Name="Project_Id"/>
+                    <PropertyRef Name="Referential_Area"/>
+                    <PropertyRef Name="Section"/>
+                    <PropertyRef Name="Year"/>
+                    <PropertyRef Name="Week_Number"/>
+                </Key>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="Center" Type="Edm.String" Nullable="false"/>
+                <Property Name="Society" Type="Edm.String" Nullable="false"/>
+                <Property Name="Version" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="Project_Id" Type="Edm.String" MaxLength="100" Nullable="false"/>
+                <Property Name="Referential_Area" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="Section" Type="Edm.String" MaxLength="20" Nullable="false"/>
+                <Property Name="Year" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="Week_Number" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="Tower_Model" Type="Edm.String" MaxLength="200"/>
+                <Property Name="Tower_Sections_Number" Type="Edm.Int32"/>
+                <Property Name="Towers_Number" Type="Edm.Int32"/>
+                <Property Name="Week_Value" Type="Edm.Int32"/>
+                <NavigationProperty Name="production_plan_header" Type="grisrv.ProductionPlanHeaders">
+                    <ReferentialConstraint Property="Center" ReferencedProperty="Center"/>
+                    <ReferentialConstraint Property="Society" ReferencedProperty="Society"/>
+                    <ReferentialConstraint Property="Version" ReferencedProperty="Version"/>
+                </NavigationProperty>
+                <NavigationProperty Name="project_details" Type="grisrv.Projects">
+                    <ReferentialConstraint Property="Project_Id" ReferencedProperty="Project_Id"/>
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="MFUHeaders">
+                <Key>
+                    <PropertyRef Name="Center"/>
+                    <PropertyRef Name="Society"/>
+                </Key>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="Center" Type="Edm.String" Nullable="false"/>
+                <Property Name="Society" Type="Edm.String" Nullable="false"/>
+                <Property Name="MFU_Progress" Type="Edm.Int32"/>
+                <Property Name="Total_Proyects" Type="Edm.Int32"/>
+                <NavigationProperty Name="mfu_attachments" Type="Collection(grisrv.MFUAttachments)"/>
+            </EntityType>
+            <EntityType Name="MFUAttachments">
+                <Key>
+                    <PropertyRef Name="Center"/>
+                    <PropertyRef Name="Society"/>
+                    <PropertyRef Name="Attachment_Id"/>
+                </Key>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="Center" Type="Edm.String" Nullable="false"/>
+                <Property Name="Society" Type="Edm.String" Nullable="false"/>
+                <Property Name="Attachment_Id" Type="Edm.String" MaxLength="200" Nullable="false"/>
+                <NavigationProperty Name="mfu_details" Type="grisrv.MFUAttachments">
+                    <ReferentialConstraint Property="Center" ReferencedProperty="Center"/>
+                    <ReferentialConstraint Property="Society" ReferencedProperty="Society"/>
+                </NavigationProperty>
+                <NavigationProperty Name="attachment_details" Type="grisrv.Attachments">
+                    <ReferentialConstraint Property="Attachment_Id" ReferencedProperty="Attachment_Id"/>
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="MFULines">
+                <Key>
+                    <PropertyRef Name="Center"/>
+                    <PropertyRef Name="Society"/>
+                    <PropertyRef Name="Project_Id"/>
+                    <PropertyRef Name="Product_Category_Id"/>
+                    <PropertyRef Name="Year"/>
+                    <PropertyRef Name="Week_Number"/>
+                </Key>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="Center" Type="Edm.String" Nullable="false"/>
+                <Property Name="Society" Type="Edm.String" Nullable="false"/>
+                <Property Name="Project_Id" Type="Edm.String" MaxLength="100" Nullable="false"/>
+                <Property Name="Product_Category_Id" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="Year" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="Week_Number" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="Tower_Model" Type="Edm.String" MaxLength="200"/>
+                <Property Name="Group" Type="Edm.String" MaxLength="100"/>
+                <Property Name="Attachment_Id" Type="Edm.String" MaxLength="200"/>
+                <Property Name="Vendor_Id" Type="Edm.String"/>
+                <Property Name="Incoterm" Type="Edm.String"/>
+                <Property Name="Sets" Type="Edm.Int32"/>
+                <Property Name="Purchase_Order" Type="Edm.String"/>
+                <Property Name="Scope" Type="Edm.String" MaxLength="100"/>
+                <Property Name="Progress" Type="Edm.Int32"/>
+                <Property Name="Week_Value" Type="Edm.Int32"/>
+                <Property Name="Delays" Type="Edm.Int32"/>
+                <Property Name="Received" Type="Edm.Int32"/>
+                <Property Name="Status_Id" Type="Edm.String" MaxLength="2"/>
+                <Property Name="Alert_Id" Type="Edm.Guid"/>
+                <NavigationProperty Name="mfu_header" Type="grisrv.MFUHeaders">
+                    <ReferentialConstraint Property="Center" ReferencedProperty="Center"/>
+                    <ReferentialConstraint Property="Society" ReferencedProperty="Society"/>
+                </NavigationProperty>
+                <NavigationProperty Name="mfu_line_history" Type="Collection(grisrv.MFULineHistory)"/>
+                <NavigationProperty Name="mfu_line_status_detail" Type="grisrv.MFULineStatuses">
+                    <ReferentialConstraint Property="Status_Id" ReferencedProperty="Status_Id"/>
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="MFULineHistory">
+                <Key>
+                    <PropertyRef Name="Center"/>
+                    <PropertyRef Name="Society"/>
+                    <PropertyRef Name="Project_Id"/>
+                    <PropertyRef Name="Product_Category_Id"/>
+                    <PropertyRef Name="Year"/>
+                    <PropertyRef Name="Week_Number"/>
+                    <PropertyRef Name="Version"/>
+                </Key>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="Center" Type="Edm.String" Nullable="false"/>
+                <Property Name="Society" Type="Edm.String" Nullable="false"/>
+                <Property Name="Project_Id" Type="Edm.String" MaxLength="100" Nullable="false"/>
+                <Property Name="Product_Category_Id" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="Year" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="Week_Number" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="Version" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="Tower_Model" Type="Edm.String" MaxLength="200"/>
+                <Property Name="Group" Type="Edm.String" MaxLength="100"/>
+                <Property Name="Attachment_Id" Type="Edm.String" MaxLength="200"/>
+                <Property Name="Vendor_Id" Type="Edm.String"/>
+                <Property Name="Incoterm" Type="Edm.String"/>
+                <Property Name="Sets" Type="Edm.Int32"/>
+                <Property Name="Purchase_Order" Type="Edm.String"/>
+                <Property Name="Scope" Type="Edm.String" MaxLength="100"/>
+                <Property Name="Progress" Type="Edm.Int32"/>
+                <Property Name="Week_Value" Type="Edm.Int32"/>
+                <Property Name="Delays" Type="Edm.Int32"/>
+                <Property Name="Received" Type="Edm.Int32"/>
+                <Property Name="Status_Id" Type="Edm.String" MaxLength="2"/>
+                <Property Name="Alert_Id" Type="Edm.Guid"/>
+                <NavigationProperty Name="mfu_header" Type="grisrv.MFUHeaders">
+                    <ReferentialConstraint Property="Center" ReferencedProperty="Center"/>
+                    <ReferentialConstraint Property="Society" ReferencedProperty="Society"/>
+                </NavigationProperty>
+                <NavigationProperty Name="mfu_actual_line_data" Type="grisrv.MFULines">
+                    <ReferentialConstraint Property="Center" ReferencedProperty="Center"/>
+                    <ReferentialConstraint Property="Society" ReferencedProperty="Society"/>
+                    <ReferentialConstraint Property="Project_Id" ReferencedProperty="Project_Id"/>
+                    <ReferentialConstraint Property="Product_Category_Id" ReferencedProperty="Product_Category_Id"/>
+                    <ReferentialConstraint Property="Year" ReferencedProperty="Year"/>
+                    <ReferentialConstraint Property="Week_Number" ReferencedProperty="Week_Number"/>
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="Attachments">
+                <Key>
+                    <PropertyRef Name="Attachment_Id"/>
+                </Key>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="Attachment_Id" Type="Edm.String" MaxLength="200" Nullable="false"/>
+                <Property Name="Attachment_mime_type" Type="Edm.String" MaxLength="100"/>
+                <Property Name="Attachment_name" Type="Edm.String" MaxLength="150"/>
+                <Property Name="Attachment_cmis_path" Type="Edm.String" MaxLength="250"/>
+                <Property Name="Attachment_size" Type="Edm.Int32"/>
+                <NavigationProperty Name="projects_list" Type="grisrv.ProjectAttachments">
+                    <ReferentialConstraint Property="Attachment_Id" ReferencedProperty="Attachment_Id"/>
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="Languages">
+                <Key>
+                    <PropertyRef Name="code"/>
+                </Key>
+                <Property Name="name" Type="Edm.String" MaxLength="255"/>
+                <Property Name="descr" Type="Edm.String" MaxLength="1000"/>
+                <Property Name="code" Type="Edm.String" MaxLength="14" Nullable="false"/>
+                <NavigationProperty Name="texts" Type="Collection(grisrv.Languages_texts)">
+                    <OnDelete Action="Cascade"/>
+                </NavigationProperty>
+                <NavigationProperty Name="localized" Type="grisrv.Languages_texts">
+                    <ReferentialConstraint Property="code" ReferencedProperty="code"/>
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="DraftAdministrativeData">
+                <Key>
+                    <PropertyRef Name="DraftUUID"/>
+                </Key>
+                <Property Name="DraftUUID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="CreationDateTime" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="CreatedByUser" Type="Edm.String" MaxLength="256"/>
+                <Property Name="DraftIsCreatedByMe" Type="Edm.Boolean"/>
+                <Property Name="LastChangeDateTime" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="LastChangedByUser" Type="Edm.String" MaxLength="256"/>
+                <Property Name="InProcessByUser" Type="Edm.String" MaxLength="256"/>
+                <Property Name="DraftIsProcessedByMe" Type="Edm.Boolean"/>
+            </EntityType>
+            <EntityType Name="ProductFamilies_texts">
+                <Key>
+                    <PropertyRef Name="locale"/>
+                    <PropertyRef Name="Product_Family_Id"/>
+                </Key>
+                <Property Name="locale" Type="Edm.String" MaxLength="14" Nullable="false"/>
+                <Property Name="Product_Family_Id" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="Product_Family_Name" Type="Edm.String" MaxLength="200"/>
+            </EntityType>
+            <EntityType Name="ReferentialAreas_texts">
+                <Key>
+                    <PropertyRef Name="ID_texts"/>
+                    <PropertyRef Name="IsActiveEntity"/>
+                </Key>
+                <Property Name="ID_texts" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="locale" Type="Edm.String" MaxLength="14"/>
+                <Property Name="Referential_Area_Id" Type="Edm.Guid"/>
+                <Property Name="Referential_Area_Name" Type="Edm.String" MaxLength="50"/>
+                <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
+                <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <NavigationProperty Name="DraftAdministrativeData" Type="grisrv.DraftAdministrativeData" ContainsTarget="true"/>
+                <NavigationProperty Name="SiblingEntity" Type="grisrv.ReferentialAreas_texts"/>
+            </EntityType>
+            <EntityType Name="ProductCategories_texts">
+                <Key>
+                    <PropertyRef Name="locale"/>
+                    <PropertyRef Name="Product_Category_Id"/>
+                </Key>
+                <Property Name="locale" Type="Edm.String" MaxLength="14" Nullable="false"/>
+                <Property Name="Product_Category_Id" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="Product_Category_Name" Type="Edm.String" MaxLength="200"/>
+            </EntityType>
+            <EntityType Name="ProjectDocumentationStatuses_texts">
+                <Key>
+                    <PropertyRef Name="locale"/>
+                    <PropertyRef Name="Status_Id"/>
+                </Key>
+                <Property Name="locale" Type="Edm.String" MaxLength="14" Nullable="false"/>
+                <Property Name="Status_Id" Type="Edm.String" MaxLength="2" Nullable="false"/>
+                <Property Name="Status_Name" Type="Edm.String" MaxLength="50"/>
+            </EntityType>
+            <EntityType Name="ProjectStatuses_texts">
+                <Key>
+                    <PropertyRef Name="locale"/>
+                    <PropertyRef Name="Status_Id"/>
+                </Key>
+                <Property Name="locale" Type="Edm.String" MaxLength="14" Nullable="false"/>
+                <Property Name="Status_Id" Type="Edm.String" MaxLength="2" Nullable="false"/>
+                <Property Name="Status_Name" Type="Edm.String" MaxLength="50"/>
+            </EntityType>
+            <EntityType Name="CSPMStatuses_texts">
+                <Key>
+                    <PropertyRef Name="locale"/>
+                    <PropertyRef Name="Status_Id"/>
+                </Key>
+                <Property Name="locale" Type="Edm.String" MaxLength="14" Nullable="false"/>
+                <Property Name="Status_Id" Type="Edm.String" MaxLength="2" Nullable="false"/>
+                <Property Name="Status_Name" Type="Edm.String" MaxLength="50"/>
+            </EntityType>
+            <EntityType Name="MFULineStatuses_texts">
+                <Key>
+                    <PropertyRef Name="locale"/>
+                    <PropertyRef Name="Status_Id"/>
+                </Key>
+                <Property Name="locale" Type="Edm.String" MaxLength="14" Nullable="false"/>
+                <Property Name="Status_Id" Type="Edm.String" MaxLength="2" Nullable="false"/>
+                <Property Name="Status_Name" Type="Edm.String" MaxLength="50"/>
+            </EntityType>
+            <EntityType Name="APPModules_texts">
+                <Key>
+                    <PropertyRef Name="locale"/>
+                    <PropertyRef Name="Module_Id"/>
+                </Key>
+                <Property Name="locale" Type="Edm.String" MaxLength="14" Nullable="false"/>
+                <Property Name="Module_Id" Type="Edm.String" MaxLength="100" Nullable="false"/>
+                <Property Name="Module_Name" Type="Edm.String" MaxLength="200"/>
+            </EntityType>
+            <EntityType Name="APPActions_texts">
+                <Key>
+                    <PropertyRef Name="locale"/>
+                    <PropertyRef Name="Action_Id"/>
+                </Key>
+                <Property Name="locale" Type="Edm.String" MaxLength="14" Nullable="false"/>
+                <Property Name="Action_Id" Type="Edm.String" MaxLength="100" Nullable="false"/>
+                <Property Name="Action_Name" Type="Edm.String" MaxLength="150"/>
+            </EntityType>
+            <EntityType Name="Languages_texts">
+                <Key>
+                    <PropertyRef Name="locale"/>
+                    <PropertyRef Name="code"/>
+                </Key>
+                <Property Name="locale" Type="Edm.String" MaxLength="14" Nullable="false"/>
+                <Property Name="name" Type="Edm.String" MaxLength="255"/>
+                <Property Name="descr" Type="Edm.String" MaxLength="1000"/>
+                <Property Name="code" Type="Edm.String" MaxLength="14" Nullable="false"/>
+            </EntityType>
+            <Action Name="draftPrepare" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="grisrv.SystemParams"/>
+                <Parameter Name="SideEffectsQualifier" Type="Edm.String"/>
+                <ReturnType Type="grisrv.SystemParams"/>
+            </Action>
+            <Action Name="draftPrepare" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="grisrv.ReferentialAreas"/>
+                <Parameter Name="SideEffectsQualifier" Type="Edm.String"/>
+                <ReturnType Type="grisrv.ReferentialAreas"/>
+            </Action>
+            <Action Name="draftPrepare" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="grisrv.ReferentialAreas_texts"/>
+                <Parameter Name="SideEffectsQualifier" Type="Edm.String"/>
+                <ReturnType Type="grisrv.ReferentialAreas_texts"/>
+            </Action>
+            <Action Name="draftActivate" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="grisrv.SystemParams"/>
+                <ReturnType Type="grisrv.SystemParams"/>
+            </Action>
+            <Action Name="draftActivate" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="grisrv.ReferentialAreas"/>
+                <ReturnType Type="grisrv.ReferentialAreas"/>
+            </Action>
+            <Action Name="draftEdit" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="grisrv.SystemParams"/>
+                <Parameter Name="PreserveChanges" Type="Edm.Boolean"/>
+                <ReturnType Type="grisrv.SystemParams"/>
+            </Action>
+            <Action Name="draftEdit" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="grisrv.ReferentialAreas"/>
+                <Parameter Name="PreserveChanges" Type="Edm.Boolean"/>
+                <ReturnType Type="grisrv.ReferentialAreas"/>
+            </Action>
+            <Annotations Target="grisrv.EntityContainer">
+                <Annotation Term="Core.Description" String="Servicio oData para la gestion de datos maestros"/>
+            </Annotations>
+            <Annotations Target="grisrv.SystemParams">
+                <Annotation Term="UI.HeaderInfo">
+                    <Record Type="UI.HeaderInfoType">
+                        <PropertyValue Property="TypeName" String="Parámetro del sistema"/>
+                        <PropertyValue Property="TypeNamePlural" String="Parámetros del sistema"/>
+                        <PropertyValue Property="Title">
+                            <Record Type="UI.DataField">
+                                <PropertyValue Property="Value" Path="System_Param_Name"/>
+                            </Record>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.FieldGroup" Qualifier="GeneratedGroup">
+                    <Record Type="UI.FieldGroupType">
+                        <PropertyValue Property="Data">
+                            <Collection>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Label" String="Valor del parámetro"/>
+                                    <PropertyValue Property="Value" Path="System_Param_Value"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.Facets">
+                    <Collection>
+                        <Record Type="UI.ReferenceFacet">
+                            <PropertyValue Property="ID" String="GeneratedFacet1"/>
+                            <PropertyValue Property="Label" String="Configuración"/>
+                            <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#GeneratedGroup"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.LineItem">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="System_Param_Name"/>
+                            <PropertyValue Property="Label" String="Id del parámetro"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="System_Param_Value"/>
+                            <PropertyValue Property="Label" String="Valor del parámetro"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="modifiedAt"/>
+                            <PropertyValue Property="Label" String="Fecha de modificación"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="modifiedBy"/>
+                            <PropertyValue Property="Label" String="Usuario de modificación"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="createdAt"/>
+                            <PropertyValue Property="Label" String="Fecha de creación"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="createdBy"/>
+                            <PropertyValue Property="Label" String="Usuario de creación"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.SelectionFields">
+                    <Collection>
+                        <PropertyPath>System_Param_Name</PropertyPath>
+                        <PropertyPath>System_Param_Value</PropertyPath>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="Core.Description" String="&#xA;Entidades de dato maestro&#xA;"/>
+            </Annotations>
+            <Annotations Target="grisrv.EntityContainer/SystemParams">
+                <Annotation Term="Common.DraftRoot">
+                    <Record Type="Common.DraftRootType">
+                        <PropertyValue Property="ActivationAction" String="grisrv.draftActivate"/>
+                        <PropertyValue Property="EditAction" String="grisrv.draftEdit"/>
+                        <PropertyValue Property="PreparationAction" String="grisrv.draftPrepare"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="grisrv.SystemParams/createdAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Created On"/>
+            </Annotations>
+            <Annotations Target="grisrv.SystemParams/createdBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User&apos;s unique ID"/>
+                <Annotation Term="Common.Label" String="Created By"/>
+            </Annotations>
+            <Annotations Target="grisrv.SystemParams/modifiedAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Changed On"/>
+            </Annotations>
+            <Annotations Target="grisrv.SystemParams/modifiedBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User&apos;s unique ID"/>
+                <Annotation Term="Common.Label" String="Changed By"/>
+            </Annotations>
+            <Annotations Target="grisrv.SystemParams/System_Param_Id">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+                <Annotation Term="Common.Label" String="Id del parámetro"/>
+                <Annotation Term="Common.QuickInfo" String="Id del parámetro"/>
+                <Annotation Term="Common.Text" String="System_Param_Name">
+                    <Annotation Term="UI.TextArrangement" EnumMember="UI.TextArrangementType/TextOnly"/>
+                </Annotation>
+                <Annotation Term="Core.Description" String="Id del parámetro"/>
+                <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
+            </Annotations>
+            <Annotations Target="grisrv.SystemParams/System_Param_Name">
+                <Annotation Term="Common.Label" String="Id del parámetro"/>
+                <Annotation Term="Common.QuickInfo" String="Id del parámetro"/>
+                <Annotation Term="Core.Description" String="Id del parámetro"/>
+            </Annotations>
+            <Annotations Target="grisrv.SystemParams/System_Param_Value">
+                <Annotation Term="Common.Label" String="Valor del parámetro"/>
+                <Annotation Term="Common.QuickInfo" String="Valor del parámetro"/>
+                <Annotation Term="Core.Description" String="Valor del parámetro"/>
+            </Annotations>
+            <Annotations Target="grisrv.SystemParams/IsActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="grisrv.SystemParams/HasActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="grisrv.SystemParams/HasDraftEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="grisrv.SystemParams/DraftAdministrativeData">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="grisrv.ProductFamilies">
+                <Annotation Term="UI.Identification">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="Product_Family_Id"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.LineItem">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="Product_Family_Id"/>
+                            <PropertyValue Property="Label" String="Familia de producto"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="Is_Customer_Category"/>
+                            <PropertyValue Property="Label" String="Es familia de cliente"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="modifiedAt"/>
+                            <PropertyValue Property="Label" String="Fecha de modificación"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="modifiedBy"/>
+                            <PropertyValue Property="Label" String="Usuario de modificación"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="createdAt"/>
+                            <PropertyValue Property="Label" String="Fecha de creación"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="createdBy"/>
+                            <PropertyValue Property="Label" String="Usuario de creación"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="Core.Description" String="&#xA;tabla para almacenar el maestro de familias de producto&#xA;"/>
+            </Annotations>
+            <Annotations Target="grisrv.ProductFamilies/createdAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Created On"/>
+            </Annotations>
+            <Annotations Target="grisrv.ProductFamilies/createdBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User&apos;s unique ID"/>
+                <Annotation Term="Common.Label" String="Created By"/>
+            </Annotations>
+            <Annotations Target="grisrv.ProductFamilies/modifiedAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Changed On"/>
+            </Annotations>
+            <Annotations Target="grisrv.ProductFamilies/modifiedBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User&apos;s unique ID"/>
+                <Annotation Term="Common.Label" String="Changed By"/>
+            </Annotations>
+            <Annotations Target="grisrv.ProductFamilies/Product_Family_Id">
+                <Annotation Term="Common.Label" String="Familia de producto"/>
+                <Annotation Term="Common.QuickInfo" String="Familia de producto"/>
+                <Annotation Term="Common.Text" String="Product_Family_Name">
+                    <Annotation Term="UI.TextArrangement" EnumMember="UI.TextArrangementType/TextOnly"/>
+                </Annotation>
+                <Annotation Term="Core.Description" String="Familia de producto"/>
+                <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
+            </Annotations>
+            <Annotations Target="grisrv.ReferentialAreas">
+                <Annotation Term="UI.HeaderInfo">
+                    <Record Type="UI.HeaderInfoType">
+                        <PropertyValue Property="TypeName" String="Área de referencia"/>
+                        <PropertyValue Property="TypeNamePlural" String="Áreas de referencia"/>
+                        <PropertyValue Property="Title">
+                            <Record Type="UI.DataField">
+                                <PropertyValue Property="Value" Path="Referential_Area_Name"/>
+                            </Record>
+                        </PropertyValue>
+                        <PropertyValue Property="Description">
+                            <Record Type="UI.DataField">
+                                <PropertyValue Property="Value" Path="Referential_Area_Id"/>
+                            </Record>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.Facets">
+                    <Collection>
+                        <Record Type="UI.ReferenceFacet">
+                            <PropertyValue Property="Label" String="Nombres por idioma"/>
+                            <PropertyValue Property="Target" AnnotationPath="texts/@UI.LineItem"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.LineItem">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="Referential_Area_Name"/>
+                            <PropertyValue Property="Label" String="Área de referencia"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="modifiedAt"/>
+                            <PropertyValue Property="Label" String="Fecha de modificación"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="modifiedBy"/>
+                            <PropertyValue Property="Label" String="Usuario de modificación"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="createdAt"/>
+                            <PropertyValue Property="Label" String="Fecha de creación"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="createdBy"/>
+                            <PropertyValue Property="Label" String="Usuario de creación"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.SelectionFields">
+                    <Collection>
+                        <PropertyPath>Referential_Area_Name</PropertyPath>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="Core.Description" String="&#xA;tabla para almacenar los areas de referencia en la app, Area 0, Area 1, Area 2 ....&#xA;"/>
+            </Annotations>
+            <Annotations Target="grisrv.EntityContainer/ReferentialAreas">
+                <Annotation Term="Common.DraftRoot">
+                    <Record Type="Common.DraftRootType">
+                        <PropertyValue Property="ActivationAction" String="grisrv.draftActivate"/>
+                        <PropertyValue Property="EditAction" String="grisrv.draftEdit"/>
+                        <PropertyValue Property="PreparationAction" String="grisrv.draftPrepare"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="grisrv.ReferentialAreas/createdAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Created On"/>
+            </Annotations>
+            <Annotations Target="grisrv.ReferentialAreas/createdBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User&apos;s unique ID"/>
+                <Annotation Term="Common.Label" String="Created By"/>
+            </Annotations>
+            <Annotations Target="grisrv.ReferentialAreas/modifiedAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Changed On"/>
+            </Annotations>
+            <Annotations Target="grisrv.ReferentialAreas/modifiedBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User&apos;s unique ID"/>
+                <Annotation Term="Common.Label" String="Changed By"/>
+            </Annotations>
+            <Annotations Target="grisrv.ReferentialAreas/Referential_Area_Id">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+                <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
+            </Annotations>
+            <Annotations Target="grisrv.ReferentialAreas/Referential_Area_Name">
+                <Annotation Term="Common.Label" String="Nombre por defecto"/>
+                <Annotation Term="Common.QuickInfo" String="Área de referencia"/>
+                <Annotation Term="Core.Description" String="Área de referencia"/>
+            </Annotations>
+            <Annotations Target="grisrv.ReferentialAreas/IsActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="grisrv.ReferentialAreas/HasActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="grisrv.ReferentialAreas/HasDraftEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="grisrv.ReferentialAreas/DraftAdministrativeData">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="grisrv.ProductCategories">
+                <Annotation Term="UI.Identification">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="Product_Category_Id"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.LineItem">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="Product_Category_Id"/>
+                            <PropertyValue Property="Label" String="Categoría de producto"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="Referential_Area_Id"/>
+                            <PropertyValue Property="Label" String="Área de referencia"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="Product_Family_Id"/>
+                            <PropertyValue Property="Label" String="Familia de producto"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="modifiedAt"/>
+                            <PropertyValue Property="Label" String="Fecha de modificación"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="modifiedBy"/>
+                            <PropertyValue Property="Label" String="Usuario de modificación"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="createdAt"/>
+                            <PropertyValue Property="Label" String="Fecha de creación"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="createdBy"/>
+                            <PropertyValue Property="Label" String="Usuario de creación"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.SelectionFields">
+                    <Collection>
+                        <PropertyPath>Product_Category_Id</PropertyPath>
+                        <PropertyPath>Product_Family_Id</PropertyPath>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="Core.Description" String="&#xA;almacena las categorias de productos&#xA;"/>
+            </Annotations>
+            <Annotations Target="grisrv.ProductCategories/createdAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Created On"/>
+            </Annotations>
+            <Annotations Target="grisrv.ProductCategories/createdBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User&apos;s unique ID"/>
+                <Annotation Term="Common.Label" String="Created By"/>
+            </Annotations>
+            <Annotations Target="grisrv.ProductCategories/modifiedAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Changed On"/>
+            </Annotations>
+            <Annotations Target="grisrv.ProductCategories/modifiedBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User&apos;s unique ID"/>
+                <Annotation Term="Common.Label" String="Changed By"/>
+            </Annotations>
+            <Annotations Target="grisrv.ProductCategories/Product_Category_Id">
+                <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
+            </Annotations>
+            <Annotations Target="grisrv.ProductCategories/Referential_Area_Id">
+                <Annotation Term="Common.Label" String="Área de referencia"/>
+                <Annotation Term="Common.QuickInfo" String="Área de referencia"/>
+                <Annotation Term="Common.Text" String="Referential_Area_Name">
+                    <Annotation Term="UI.TextArrangement" EnumMember="UI.TextArrangementType/TextOnly"/>
+                </Annotation>
+                <Annotation Term="Core.Description" String="Área de referencia"/>
+            </Annotations>
+            <Annotations Target="grisrv.ContactUsers">
+                <Annotation Term="Core.Description" String="&#xA;almacena los usuarios de contacto disponibles para un proyecto&#xA;"/>
+            </Annotations>
+            <Annotations Target="grisrv.ContactUsers/createdAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Created On"/>
+            </Annotations>
+            <Annotations Target="grisrv.ContactUsers/createdBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User&apos;s unique ID"/>
+                <Annotation Term="Common.Label" String="Created By"/>
+            </Annotations>
+            <Annotations Target="grisrv.ContactUsers/modifiedAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Changed On"/>
+            </Annotations>
+            <Annotations Target="grisrv.ContactUsers/modifiedBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User&apos;s unique ID"/>
+                <Annotation Term="Common.Label" String="Changed By"/>
+            </Annotations>
+            <Annotations Target="grisrv.ContactUsers/User_Id">
+                <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
+            </Annotations>
+            <Annotations Target="grisrv.ProjectDocumentationStatuses">
+                <Annotation Term="Core.Description" String="&#xA;estados posibles para la documetnacion del proyecto&#xA;"/>
+            </Annotations>
+            <Annotations Target="grisrv.ProjectDocumentationStatuses/createdAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Created On"/>
+            </Annotations>
+            <Annotations Target="grisrv.ProjectDocumentationStatuses/createdBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User&apos;s unique ID"/>
+                <Annotation Term="Common.Label" String="Created By"/>
+            </Annotations>
+            <Annotations Target="grisrv.ProjectDocumentationStatuses/modifiedAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Changed On"/>
+            </Annotations>
+            <Annotations Target="grisrv.ProjectDocumentationStatuses/modifiedBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User&apos;s unique ID"/>
+                <Annotation Term="Common.Label" String="Changed By"/>
+            </Annotations>
+            <Annotations Target="grisrv.ProjectDocumentationStatuses/HighlightStatus">
+                <Annotation Term="Core.Description" String="&#xA;Listas de valores&#xA;"/>
+                <Annotation Term="Validation.AllowedValues">
+                    <Collection>
+                        <Record Type="Validation.AllowedValue">
+                            <Annotation Term="Core.SymbolicName" String="Error"/>
+                            <PropertyValue Property="Value" String="Error"/>
+                        </Record>
+                        <Record Type="Validation.AllowedValue">
+                            <Annotation Term="Core.SymbolicName" String="Information"/>
+                            <PropertyValue Property="Value" String="Information"/>
+                        </Record>
+                        <Record Type="Validation.AllowedValue">
+                            <Annotation Term="Core.SymbolicName" String="None"/>
+                            <PropertyValue Property="Value" String="None"/>
+                        </Record>
+                        <Record Type="Validation.AllowedValue">
+                            <Annotation Term="Core.SymbolicName" String="Success"/>
+                            <PropertyValue Property="Value" String="Success"/>
+                        </Record>
+                        <Record Type="Validation.AllowedValue">
+                            <Annotation Term="Core.SymbolicName" String="Warning"/>
+                            <PropertyValue Property="Value" String="Warning"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="grisrv.ProjectStatuses">
+                <Annotation Term="Core.Description" String="&#xA;estados disponibles para un proyecto&#xA;"/>
+            </Annotations>
+            <Annotations Target="grisrv.ProjectStatuses/createdAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Created On"/>
+            </Annotations>
+            <Annotations Target="grisrv.ProjectStatuses/createdBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User&apos;s unique ID"/>
+                <Annotation Term="Common.Label" String="Created By"/>
+            </Annotations>
+            <Annotations Target="grisrv.ProjectStatuses/modifiedAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Changed On"/>
+            </Annotations>
+            <Annotations Target="grisrv.ProjectStatuses/modifiedBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User&apos;s unique ID"/>
+                <Annotation Term="Common.Label" String="Changed By"/>
+            </Annotations>
+            <Annotations Target="grisrv.ProjectStatuses/HighlightStatus">
+                <Annotation Term="Core.Description" String="&#xA;Listas de valores&#xA;"/>
+                <Annotation Term="Validation.AllowedValues">
+                    <Collection>
+                        <Record Type="Validation.AllowedValue">
+                            <Annotation Term="Core.SymbolicName" String="Error"/>
+                            <PropertyValue Property="Value" String="Error"/>
+                        </Record>
+                        <Record Type="Validation.AllowedValue">
+                            <Annotation Term="Core.SymbolicName" String="Information"/>
+                            <PropertyValue Property="Value" String="Information"/>
+                        </Record>
+                        <Record Type="Validation.AllowedValue">
+                            <Annotation Term="Core.SymbolicName" String="None"/>
+                            <PropertyValue Property="Value" String="None"/>
+                        </Record>
+                        <Record Type="Validation.AllowedValue">
+                            <Annotation Term="Core.SymbolicName" String="Success"/>
+                            <PropertyValue Property="Value" String="Success"/>
+                        </Record>
+                        <Record Type="Validation.AllowedValue">
+                            <Annotation Term="Core.SymbolicName" String="Warning"/>
+                            <PropertyValue Property="Value" String="Warning"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="grisrv.CSPMStatuses">
+                <Annotation Term="Core.Description" String="&#xA;estados disponibles para una linea de CSPM&#xA;"/>
+            </Annotations>
+            <Annotations Target="grisrv.CSPMStatuses/createdAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Created On"/>
+            </Annotations>
+            <Annotations Target="grisrv.CSPMStatuses/createdBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User&apos;s unique ID"/>
+                <Annotation Term="Common.Label" String="Created By"/>
+            </Annotations>
+            <Annotations Target="grisrv.CSPMStatuses/modifiedAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Changed On"/>
+            </Annotations>
+            <Annotations Target="grisrv.CSPMStatuses/modifiedBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User&apos;s unique ID"/>
+                <Annotation Term="Common.Label" String="Changed By"/>
+            </Annotations>
+            <Annotations Target="grisrv.CSPMStatuses/HighlightStatus">
+                <Annotation Term="Core.Description" String="&#xA;Listas de valores&#xA;"/>
+                <Annotation Term="Validation.AllowedValues">
+                    <Collection>
+                        <Record Type="Validation.AllowedValue">
+                            <Annotation Term="Core.SymbolicName" String="Error"/>
+                            <PropertyValue Property="Value" String="Error"/>
+                        </Record>
+                        <Record Type="Validation.AllowedValue">
+                            <Annotation Term="Core.SymbolicName" String="Information"/>
+                            <PropertyValue Property="Value" String="Information"/>
+                        </Record>
+                        <Record Type="Validation.AllowedValue">
+                            <Annotation Term="Core.SymbolicName" String="None"/>
+                            <PropertyValue Property="Value" String="None"/>
+                        </Record>
+                        <Record Type="Validation.AllowedValue">
+                            <Annotation Term="Core.SymbolicName" String="Success"/>
+                            <PropertyValue Property="Value" String="Success"/>
+                        </Record>
+                        <Record Type="Validation.AllowedValue">
+                            <Annotation Term="Core.SymbolicName" String="Warning"/>
+                            <PropertyValue Property="Value" String="Warning"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="grisrv.MFULineStatuses">
+                <Annotation Term="Core.Description" String="&#xA;estados disponibles para una linea de MFU&#xA;"/>
+            </Annotations>
+            <Annotations Target="grisrv.MFULineStatuses/createdAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Created On"/>
+            </Annotations>
+            <Annotations Target="grisrv.MFULineStatuses/createdBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User&apos;s unique ID"/>
+                <Annotation Term="Common.Label" String="Created By"/>
+            </Annotations>
+            <Annotations Target="grisrv.MFULineStatuses/modifiedAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Changed On"/>
+            </Annotations>
+            <Annotations Target="grisrv.MFULineStatuses/modifiedBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User&apos;s unique ID"/>
+                <Annotation Term="Common.Label" String="Changed By"/>
+            </Annotations>
+            <Annotations Target="grisrv.MFULineStatuses/HighlightStatus">
+                <Annotation Term="Core.Description" String="&#xA;Listas de valores&#xA;"/>
+                <Annotation Term="Validation.AllowedValues">
+                    <Collection>
+                        <Record Type="Validation.AllowedValue">
+                            <Annotation Term="Core.SymbolicName" String="Error"/>
+                            <PropertyValue Property="Value" String="Error"/>
+                        </Record>
+                        <Record Type="Validation.AllowedValue">
+                            <Annotation Term="Core.SymbolicName" String="Information"/>
+                            <PropertyValue Property="Value" String="Information"/>
+                        </Record>
+                        <Record Type="Validation.AllowedValue">
+                            <Annotation Term="Core.SymbolicName" String="None"/>
+                            <PropertyValue Property="Value" String="None"/>
+                        </Record>
+                        <Record Type="Validation.AllowedValue">
+                            <Annotation Term="Core.SymbolicName" String="Success"/>
+                            <PropertyValue Property="Value" String="Success"/>
+                        </Record>
+                        <Record Type="Validation.AllowedValue">
+                            <Annotation Term="Core.SymbolicName" String="Warning"/>
+                            <PropertyValue Property="Value" String="Warning"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="grisrv.APPModules">
+                <Annotation Term="Core.Description" String="&#xA;almacena los modulos de aplciacion disponibles en la herramienta&#xA;"/>
+            </Annotations>
+            <Annotations Target="grisrv.APPModules/createdAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Created On"/>
+            </Annotations>
+            <Annotations Target="grisrv.APPModules/createdBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User&apos;s unique ID"/>
+                <Annotation Term="Common.Label" String="Created By"/>
+            </Annotations>
+            <Annotations Target="grisrv.APPModules/modifiedAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Changed On"/>
+            </Annotations>
+            <Annotations Target="grisrv.APPModules/modifiedBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User&apos;s unique ID"/>
+                <Annotation Term="Common.Label" String="Changed By"/>
+            </Annotations>
+            <Annotations Target="grisrv.APPModuleProperties">
+                <Annotation Term="Core.Description" String="&#xA;almacena las propiedades disponibles para un modulo&#xA;"/>
+            </Annotations>
+            <Annotations Target="grisrv.APPModuleProperties/createdAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Created On"/>
+            </Annotations>
+            <Annotations Target="grisrv.APPModuleProperties/createdBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User&apos;s unique ID"/>
+                <Annotation Term="Common.Label" String="Created By"/>
+            </Annotations>
+            <Annotations Target="grisrv.APPModuleProperties/modifiedAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Changed On"/>
+            </Annotations>
+            <Annotations Target="grisrv.APPModuleProperties/modifiedBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User&apos;s unique ID"/>
+                <Annotation Term="Common.Label" String="Changed By"/>
+            </Annotations>
+            <Annotations Target="grisrv.APPModuleActions">
+                <Annotation Term="Core.Description" String="&#xA;almacena las acciones disponibles para un modulo&#xA;"/>
+            </Annotations>
+            <Annotations Target="grisrv.APPModuleActions/createdAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Created On"/>
+            </Annotations>
+            <Annotations Target="grisrv.APPModuleActions/createdBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User&apos;s unique ID"/>
+                <Annotation Term="Common.Label" String="Created By"/>
+            </Annotations>
+            <Annotations Target="grisrv.APPModuleActions/modifiedAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Changed On"/>
+            </Annotations>
+            <Annotations Target="grisrv.APPModuleActions/modifiedBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User&apos;s unique ID"/>
+                <Annotation Term="Common.Label" String="Changed By"/>
+            </Annotations>
+            <Annotations Target="grisrv.APPActions">
+                <Annotation Term="Core.Description" String="&#xA;almacena las acciones disponibles entoda la aplicacion&#xA;"/>
+            </Annotations>
+            <Annotations Target="grisrv.APPActions/createdAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Created On"/>
+            </Annotations>
+            <Annotations Target="grisrv.APPActions/createdBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User&apos;s unique ID"/>
+                <Annotation Term="Common.Label" String="Created By"/>
+            </Annotations>
+            <Annotations Target="grisrv.APPActions/modifiedAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Changed On"/>
+            </Annotations>
+            <Annotations Target="grisrv.APPActions/modifiedBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User&apos;s unique ID"/>
+                <Annotation Term="Common.Label" String="Changed By"/>
+            </Annotations>
+            <Annotations Target="grisrv.GRIRolesAppModuleActions">
+                <Annotation Term="Core.Description" String="&#xA;Entidades de fase 0 / gestion de proyecto&#xA;"/>
+            </Annotations>
+            <Annotations Target="grisrv.GRIRolesAppModuleActions/createdAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Created On"/>
+            </Annotations>
+            <Annotations Target="grisrv.GRIRolesAppModuleActions/createdBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User&apos;s unique ID"/>
+                <Annotation Term="Common.Label" String="Created By"/>
+            </Annotations>
+            <Annotations Target="grisrv.GRIRolesAppModuleActions/modifiedAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Changed On"/>
+            </Annotations>
+            <Annotations Target="grisrv.GRIRolesAppModuleActions/modifiedBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User&apos;s unique ID"/>
+                <Annotation Term="Common.Label" String="Changed By"/>
+            </Annotations>
+            <Annotations Target="grisrv.ProjectCustomerDocumentations">
+                <Annotation Term="Core.Description" String="&#xA;almacena el estado de la documentacion de clietne un proyecto&#xA;"/>
+            </Annotations>
+            <Annotations Target="grisrv.ProjectCustomerDocumentations/createdAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Created On"/>
+            </Annotations>
+            <Annotations Target="grisrv.ProjectCustomerDocumentations/createdBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User&apos;s unique ID"/>
+                <Annotation Term="Common.Label" String="Created By"/>
+            </Annotations>
+            <Annotations Target="grisrv.ProjectCustomerDocumentations/modifiedAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Changed On"/>
+            </Annotations>
+            <Annotations Target="grisrv.ProjectCustomerDocumentations/modifiedBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User&apos;s unique ID"/>
+                <Annotation Term="Common.Label" String="Changed By"/>
+            </Annotations>
+            <Annotations Target="grisrv.ProjectCustomerDocumentations/Product_Family_Id">
+                <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
+            </Annotations>
+            <Annotations Target="grisrv.ProjectInternalDocumentations">
+                <Annotation Term="Core.Description" String="&#xA;almacena el estado de la documentcion interna de un proyecto&#xA;"/>
+            </Annotations>
+            <Annotations Target="grisrv.ProjectInternalDocumentations/createdAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Created On"/>
+            </Annotations>
+            <Annotations Target="grisrv.ProjectInternalDocumentations/createdBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User&apos;s unique ID"/>
+                <Annotation Term="Common.Label" String="Created By"/>
+            </Annotations>
+            <Annotations Target="grisrv.ProjectInternalDocumentations/modifiedAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Changed On"/>
+            </Annotations>
+            <Annotations Target="grisrv.ProjectInternalDocumentations/modifiedBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User&apos;s unique ID"/>
+                <Annotation Term="Common.Label" String="Changed By"/>
+            </Annotations>
+            <Annotations Target="grisrv.ProjectInternalDocumentations/Product_Family_Id">
+                <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
+            </Annotations>
+            <Annotations Target="grisrv.ProjectContactUsers">
+                <Annotation Term="Core.Description" String="&#xA;relacion de un proyecto con los uusarios de contacto que tiene disponibles&#xA;"/>
+            </Annotations>
+            <Annotations Target="grisrv.ProjectContactUsers/createdAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Created On"/>
+            </Annotations>
+            <Annotations Target="grisrv.ProjectContactUsers/createdBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User&apos;s unique ID"/>
+                <Annotation Term="Common.Label" String="Created By"/>
+            </Annotations>
+            <Annotations Target="grisrv.ProjectContactUsers/modifiedAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Changed On"/>
+            </Annotations>
+            <Annotations Target="grisrv.ProjectContactUsers/modifiedBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User&apos;s unique ID"/>
+                <Annotation Term="Common.Label" String="Changed By"/>
+            </Annotations>
+            <Annotations Target="grisrv.ProjectContactUsers/User_Id">
+                <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
+            </Annotations>
+            <Annotations Target="grisrv.ProjectAttachments">
+                <Annotation Term="Core.Description" String="&#xA;relacion de adjuntos de un proyecto&#xA;"/>
+            </Annotations>
+            <Annotations Target="grisrv.ProjectAttachments/createdAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Created On"/>
+            </Annotations>
+            <Annotations Target="grisrv.ProjectAttachments/createdBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User&apos;s unique ID"/>
+                <Annotation Term="Common.Label" String="Created By"/>
+            </Annotations>
+            <Annotations Target="grisrv.ProjectAttachments/modifiedAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Changed On"/>
+            </Annotations>
+            <Annotations Target="grisrv.ProjectAttachments/modifiedBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User&apos;s unique ID"/>
+                <Annotation Term="Common.Label" String="Changed By"/>
+            </Annotations>
+            <Annotations Target="grisrv.ProjectAttachments/Attachment_Id">
+                <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
+            </Annotations>
+            <Annotations Target="grisrv.ProjectCustomerDemands">
+                <Annotation Term="Core.Description" String="&#xA;relacion de un proyecto con su demanda de cliente&#xA;"/>
+            </Annotations>
+            <Annotations Target="grisrv.ProjectCustomerDemands/createdAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Created On"/>
+            </Annotations>
+            <Annotations Target="grisrv.ProjectCustomerDemands/createdBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User&apos;s unique ID"/>
+                <Annotation Term="Common.Label" String="Created By"/>
+            </Annotations>
+            <Annotations Target="grisrv.ProjectCustomerDemands/modifiedAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Changed On"/>
+            </Annotations>
+            <Annotations Target="grisrv.ProjectCustomerDemands/modifiedBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User&apos;s unique ID"/>
+                <Annotation Term="Common.Label" String="Changed By"/>
+            </Annotations>
+            <Annotations Target="grisrv.ProjectCustomerDemands/Customer_Demand_Id">
+                <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
+            </Annotations>
+            <Annotations Target="grisrv.Projects">
+                <Annotation Term="Core.Description" String="&#xA;&#xA;Entidades de gestion de FASE 0&#xA;&#xA;"/>
+            </Annotations>
+            <Annotations Target="grisrv.Projects/createdAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Created On"/>
+            </Annotations>
+            <Annotations Target="grisrv.Projects/createdBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User&apos;s unique ID"/>
+                <Annotation Term="Common.Label" String="Created By"/>
+            </Annotations>
+            <Annotations Target="grisrv.Projects/modifiedAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Changed On"/>
+            </Annotations>
+            <Annotations Target="grisrv.Projects/modifiedBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User&apos;s unique ID"/>
+                <Annotation Term="Common.Label" String="Changed By"/>
+            </Annotations>
+            <Annotations Target="grisrv.ProjectCSPMLines">
+                <Annotation Term="Core.Description" String="&#xA;contiene las lineas del CSPM de un proyecto&#xA;"/>
+            </Annotations>
+            <Annotations Target="grisrv.ProjectCSPMLines/createdAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Created On"/>
+            </Annotations>
+            <Annotations Target="grisrv.ProjectCSPMLines/createdBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User&apos;s unique ID"/>
+                <Annotation Term="Common.Label" String="Created By"/>
+            </Annotations>
+            <Annotations Target="grisrv.ProjectCSPMLines/modifiedAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Changed On"/>
+            </Annotations>
+            <Annotations Target="grisrv.ProjectCSPMLines/modifiedBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User&apos;s unique ID"/>
+                <Annotation Term="Common.Label" String="Changed By"/>
+            </Annotations>
+            <Annotations Target="grisrv.ProjectCSPMLines/CSPM_Line_Id">
+                <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
+            </Annotations>
+            <Annotations Target="grisrv.ProductionPlanHeaders">
+                <Annotation Term="Core.Description" String="&#xA;Entidades de gestion de plan de produccion&#xA;"/>
+            </Annotations>
+            <Annotations Target="grisrv.ProductionPlanHeaders/createdAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Created On"/>
+            </Annotations>
+            <Annotations Target="grisrv.ProductionPlanHeaders/createdBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User&apos;s unique ID"/>
+                <Annotation Term="Common.Label" String="Created By"/>
+            </Annotations>
+            <Annotations Target="grisrv.ProductionPlanHeaders/modifiedAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Changed On"/>
+            </Annotations>
+            <Annotations Target="grisrv.ProductionPlanHeaders/modifiedBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User&apos;s unique ID"/>
+                <Annotation Term="Common.Label" String="Changed By"/>
+            </Annotations>
+            <Annotations Target="grisrv.ProductionPlanLines">
+                <Annotation Term="Core.Description" String="&#xA;almacena las lineas de un plan de produccion&#xA;"/>
+            </Annotations>
+            <Annotations Target="grisrv.ProductionPlanLines/createdAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Created On"/>
+            </Annotations>
+            <Annotations Target="grisrv.ProductionPlanLines/createdBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User&apos;s unique ID"/>
+                <Annotation Term="Common.Label" String="Created By"/>
+            </Annotations>
+            <Annotations Target="grisrv.ProductionPlanLines/modifiedAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Changed On"/>
+            </Annotations>
+            <Annotations Target="grisrv.ProductionPlanLines/modifiedBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User&apos;s unique ID"/>
+                <Annotation Term="Common.Label" String="Changed By"/>
+            </Annotations>
+            <Annotations Target="grisrv.ProductionPlanLines/Referential_Area">
+                <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
+            </Annotations>
+            <Annotations Target="grisrv.MFUHeaders">
+                <Annotation Term="Core.Description" String="&#xA;Entidades de gestion de mfu&#xA;"/>
+            </Annotations>
+            <Annotations Target="grisrv.MFUHeaders/createdAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Created On"/>
+            </Annotations>
+            <Annotations Target="grisrv.MFUHeaders/createdBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User&apos;s unique ID"/>
+                <Annotation Term="Common.Label" String="Created By"/>
+            </Annotations>
+            <Annotations Target="grisrv.MFUHeaders/modifiedAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Changed On"/>
+            </Annotations>
+            <Annotations Target="grisrv.MFUHeaders/modifiedBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User&apos;s unique ID"/>
+                <Annotation Term="Common.Label" String="Changed By"/>
+            </Annotations>
+            <Annotations Target="grisrv.MFUAttachments">
+                <Annotation Term="Core.Description" String="&#xA;relaciona un MFU con sus adjuntos&#xA;"/>
+            </Annotations>
+            <Annotations Target="grisrv.MFUAttachments/createdAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Created On"/>
+            </Annotations>
+            <Annotations Target="grisrv.MFUAttachments/createdBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User&apos;s unique ID"/>
+                <Annotation Term="Common.Label" String="Created By"/>
+            </Annotations>
+            <Annotations Target="grisrv.MFUAttachments/modifiedAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Changed On"/>
+            </Annotations>
+            <Annotations Target="grisrv.MFUAttachments/modifiedBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User&apos;s unique ID"/>
+                <Annotation Term="Common.Label" String="Changed By"/>
+            </Annotations>
+            <Annotations Target="grisrv.MFULines">
+                <Annotation Term="Core.Description" String="&#xA;datos detallados de un MFU&#xA;"/>
+            </Annotations>
+            <Annotations Target="grisrv.MFULines/createdAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Created On"/>
+            </Annotations>
+            <Annotations Target="grisrv.MFULines/createdBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User&apos;s unique ID"/>
+                <Annotation Term="Common.Label" String="Created By"/>
+            </Annotations>
+            <Annotations Target="grisrv.MFULines/modifiedAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Changed On"/>
+            </Annotations>
+            <Annotations Target="grisrv.MFULines/modifiedBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User&apos;s unique ID"/>
+                <Annotation Term="Common.Label" String="Changed By"/>
+            </Annotations>
+            <Annotations Target="grisrv.MFULines/Product_Category_Id">
+                <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
+            </Annotations>
+            <Annotations Target="grisrv.MFULineHistory">
+                <Annotation Term="Core.Description" String="&#xA;almacena un cambio en una linea del MFU&#xA;"/>
+            </Annotations>
+            <Annotations Target="grisrv.MFULineHistory/createdAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Created On"/>
+            </Annotations>
+            <Annotations Target="grisrv.MFULineHistory/createdBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User&apos;s unique ID"/>
+                <Annotation Term="Common.Label" String="Created By"/>
+            </Annotations>
+            <Annotations Target="grisrv.MFULineHistory/modifiedAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Changed On"/>
+            </Annotations>
+            <Annotations Target="grisrv.MFULineHistory/modifiedBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User&apos;s unique ID"/>
+                <Annotation Term="Common.Label" String="Changed By"/>
+            </Annotations>
+            <Annotations Target="grisrv.MFULineHistory/Product_Category_Id">
+                <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
+            </Annotations>
+            <Annotations Target="grisrv.Attachments">
+                <Annotation Term="Core.Description" String="&#xA;FIN Entidades de gestion de mfu&#xA;"/>
+            </Annotations>
+            <Annotations Target="grisrv.Attachments/createdAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Created On"/>
+            </Annotations>
+            <Annotations Target="grisrv.Attachments/createdBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User&apos;s unique ID"/>
+                <Annotation Term="Common.Label" String="Created By"/>
+            </Annotations>
+            <Annotations Target="grisrv.Attachments/modifiedAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Changed On"/>
+            </Annotations>
+            <Annotations Target="grisrv.Attachments/modifiedBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User&apos;s unique ID"/>
+                <Annotation Term="Common.Label" String="Changed By"/>
+            </Annotations>
+            <Annotations Target="grisrv.Languages">
+                <Annotation Term="UI.Identification">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="name"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="Core.Description" String="Code list for languages&#xA;&#xA;See https://cap.cloud.sap/docs/cds/common#entity-languages"/>
+            </Annotations>
+            <Annotations Target="grisrv.EntityContainer/Languages">
+                <Annotation Term="Capabilities.DeleteRestrictions">
+                    <Record Type="Capabilities.DeleteRestrictionsType">
+                        <PropertyValue Property="Deletable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.InsertRestrictions">
+                    <Record Type="Capabilities.InsertRestrictionsType">
+                        <PropertyValue Property="Insertable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.UpdateRestrictions">
+                    <Record Type="Capabilities.UpdateRestrictionsType">
+                        <PropertyValue Property="Updatable" Bool="false"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="grisrv.Languages/name">
+                <Annotation Term="Common.Label" String="Name"/>
+            </Annotations>
+            <Annotations Target="grisrv.Languages/descr">
+                <Annotation Term="Common.Label" String="Description"/>
+            </Annotations>
+            <Annotations Target="grisrv.Languages/code">
+                <Annotation Term="Common.Text" Path="name"/>
+                <Annotation Term="Common.Label" String="Language Code"/>
+                <Annotation Term="Core.Description" String="Type for a language code"/>
+            </Annotations>
+            <Annotations Target="grisrv.DraftAdministrativeData">
+                <Annotation Term="Common.Label" String="Draft Administrative Data"/>
+            </Annotations>
+            <Annotations Target="grisrv.DraftAdministrativeData/DraftUUID">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+                <Annotation Term="Common.Label" String="Draft (Technical ID)"/>
+                <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
+            </Annotations>
+            <Annotations Target="grisrv.DraftAdministrativeData/CreationDateTime">
+                <Annotation Term="Common.Label" String="Draft Created On"/>
+            </Annotations>
+            <Annotations Target="grisrv.DraftAdministrativeData/CreatedByUser">
+                <Annotation Term="Common.Label" String="Draft Created By"/>
+            </Annotations>
+            <Annotations Target="grisrv.DraftAdministrativeData/DraftIsCreatedByMe">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+                <Annotation Term="Common.Label" String="Draft Created By Me"/>
+            </Annotations>
+            <Annotations Target="grisrv.DraftAdministrativeData/LastChangeDateTime">
+                <Annotation Term="Common.Label" String="Draft Last Changed On"/>
+            </Annotations>
+            <Annotations Target="grisrv.DraftAdministrativeData/LastChangedByUser">
+                <Annotation Term="Common.Label" String="Draft Last Changed By"/>
+            </Annotations>
+            <Annotations Target="grisrv.DraftAdministrativeData/InProcessByUser">
+                <Annotation Term="Common.Label" String="Draft In Process By"/>
+            </Annotations>
+            <Annotations Target="grisrv.DraftAdministrativeData/DraftIsProcessedByMe">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+                <Annotation Term="Common.Label" String="Draft In Process By Me"/>
+            </Annotations>
+            <Annotations Target="grisrv.ProductFamilies_texts/locale">
+                <Annotation Term="Common.Label" String="Language Code"/>
+                <Annotation Term="Core.Description" String="Type for a language code"/>
+            </Annotations>
+            <Annotations Target="grisrv.ProductFamilies_texts/Product_Family_Id">
+                <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
+            </Annotations>
+            <Annotations Target="grisrv.ReferentialAreas_texts">
+                <Annotation Term="UI.Identification">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="Referential_Area_Name"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.SelectionFields">
+                    <Collection>
+                        <PropertyPath>locale</PropertyPath>
+                        <PropertyPath>Referential_Area_Name</PropertyPath>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.LineItem">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="locale"/>
+                            <PropertyValue Property="Label" String="Idioma"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="Referential_Area_Name"/>
+                            <PropertyValue Property="Label" String="Nombre"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.FieldGroup" Qualifier="GenerateLogdGroup">
+                    <Record Type="UI.FieldGroupType">
+                        <PropertyValue Property="Data">
+                            <Collection>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Label" String="Idioma"/>
+                                    <PropertyValue Property="Value" Path="locale"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Label" String="Nombre"/>
+                                    <PropertyValue Property="Value" Path="Referential_Area_Name"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.Facets">
+                    <Collection>
+                        <Record Type="UI.ReferenceFacet">
+                            <PropertyValue Property="ID" String="GeneratedFacet1"/>
+                            <PropertyValue Property="Label" String="locale_facets_label"/>
+                            <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#GenerateLogdGroup"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="grisrv.EntityContainer/ReferentialAreas_texts">
+                <Annotation Term="Common.DraftNode">
+                    <Record Type="Common.DraftNodeType">
+                        <PropertyValue Property="PreparationAction" String="grisrv.draftPrepare"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="grisrv.ReferentialAreas_texts/ID_texts">
+                <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
+            </Annotations>
+            <Annotations Target="grisrv.ReferentialAreas_texts/locale">
+                <Annotation Term="Common.ValueListWithFixedValues" Bool="true"/>
+                <Annotation Term="Common.ValueList">
+                    <Record Type="Common.ValueListType">
+                        <PropertyValue Property="Label" String="Language Code"/>
+                        <PropertyValue Property="CollectionPath" String="Languages"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="locale"/>
+                                    <PropertyValue Property="ValueListProperty" String="code"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="name"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.Label" String="Language Code"/>
+                <Annotation Term="Core.Description" String="Type for a language code"/>
+            </Annotations>
+            <Annotations Target="grisrv.ReferentialAreas_texts/Referential_Area_Id">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="grisrv.ReferentialAreas_texts/Referential_Area_Name">
+                <Annotation Term="Common.Label" String="Área de referencia"/>
+                <Annotation Term="Common.QuickInfo" String="Área de referencia"/>
+                <Annotation Term="Core.Description" String="Área de referencia"/>
+            </Annotations>
+            <Annotations Target="grisrv.ReferentialAreas_texts/IsActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="grisrv.ReferentialAreas_texts/HasActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="grisrv.ReferentialAreas_texts/HasDraftEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="grisrv.ReferentialAreas_texts/DraftAdministrativeData">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="grisrv.ProductCategories_texts/locale">
+                <Annotation Term="Common.Label" String="Language Code"/>
+                <Annotation Term="Core.Description" String="Type for a language code"/>
+            </Annotations>
+            <Annotations Target="grisrv.ProductCategories_texts/Product_Category_Id">
+                <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
+            </Annotations>
+            <Annotations Target="grisrv.ProjectDocumentationStatuses_texts/locale">
+                <Annotation Term="Common.Label" String="Language Code"/>
+                <Annotation Term="Core.Description" String="Type for a language code"/>
+            </Annotations>
+            <Annotations Target="grisrv.ProjectStatuses_texts/locale">
+                <Annotation Term="Common.Label" String="Language Code"/>
+                <Annotation Term="Core.Description" String="Type for a language code"/>
+            </Annotations>
+            <Annotations Target="grisrv.CSPMStatuses_texts/locale">
+                <Annotation Term="Common.Label" String="Language Code"/>
+                <Annotation Term="Core.Description" String="Type for a language code"/>
+            </Annotations>
+            <Annotations Target="grisrv.MFULineStatuses_texts/locale">
+                <Annotation Term="Common.Label" String="Language Code"/>
+                <Annotation Term="Core.Description" String="Type for a language code"/>
+            </Annotations>
+            <Annotations Target="grisrv.APPModules_texts/locale">
+                <Annotation Term="Common.Label" String="Language Code"/>
+                <Annotation Term="Core.Description" String="Type for a language code"/>
+            </Annotations>
+            <Annotations Target="grisrv.APPActions_texts/locale">
+                <Annotation Term="Common.Label" String="Language Code"/>
+                <Annotation Term="Core.Description" String="Type for a language code"/>
+            </Annotations>
+            <Annotations Target="grisrv.Languages_texts/locale">
+                <Annotation Term="Common.Label" String="Language Code"/>
+                <Annotation Term="Core.Description" String="Type for a language code"/>
+            </Annotations>
+            <Annotations Target="grisrv.Languages_texts/name">
+                <Annotation Term="Common.Label" String="Name"/>
+            </Annotations>
+            <Annotations Target="grisrv.Languages_texts/descr">
+                <Annotation Term="Common.Label" String="Description"/>
+            </Annotations>
+            <Annotations Target="grisrv.Languages_texts/code">
+                <Annotation Term="Common.Text" Path="name"/>
+                <Annotation Term="Common.Label" String="Language Code"/>
+                <Annotation Term="Core.Description" String="Type for a language code"/>
+            </Annotations>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>
