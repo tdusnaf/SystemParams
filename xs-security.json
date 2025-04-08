@@ -2,12 +2,12 @@
   "xsappname": "comgrimasterdatasystemparams",
   "tenant-mode": "dedicated",
   "description": "Security profile of called application",
-  "foreign-scope-references": [
-    "$XSAPPNAME(application,gri_cap_services).User"
+  "foreign-scope-references": [    
+    "$XSAPPNAME(application,gri_cap_services).master_data-manage"
   ],
   "scopes": [
     {
-      "name": "$XSAPPNAME.User",
+      "name": "$XSAPPNAME.master_data-manage",
       "description": "Use the application"
     }
   ],
@@ -15,7 +15,7 @@
     {
       "name": "User_SystemParams",
       "description": "User",
-      "scope-references": ["$XSAPPNAME.User"]
+      "scope-references": ["$XSAPPNAME.master_data-manage"]
     }
   ],
   "oauth2-configuration": {
