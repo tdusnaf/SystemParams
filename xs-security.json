@@ -3,7 +3,7 @@
   "tenant-mode": "dedicated",
   "description": "Security profile of called application",
   "foreign-scope-references": [    
-    "$XSAPPNAME(application,gri_cap_services).master_data-manage"
+    "$XSAPPNAME(application,HerramientaAprovisionamientoGRI).master_data-manage"
   ],
   "scopes": [
     {
